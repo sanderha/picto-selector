@@ -1,0 +1,70 @@
+// bootstrap vars
+$card-spacer-x: .10rem;
+
+$grid-gutter-width: 10px;
+
+@import "~bootstrap/scss/bootstrap";
+
+
+
+// custom
+
+$card-height: 100px;
+
+.doc-card {
+    min-height: $card-height;
+    width: 140px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    &--small {
+        width: 100px;
+        margin-bottom: 8px; 
+    }
+    &__delete {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -100%;
+        transition: .25s ease;
+    }
+    &:hover {
+        img {
+            opacity: .4;
+            transition: all .25s;
+        }
+        .doc-card__delete {
+            bottom: 10%;
+        }
+    }
+}
+
+.doc-row {
+    position:relative;
+    min-height: $card-height;
+    //overflow-x: auto;
+    //white-space: nowrap;
+    &-col {
+    }
+    @media print { 
+        border: none;
+    }
+}
+
+.doc-row-delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+img {
+    max-width: 100%;
+}
+
+@media print {
+    .btn, .settings-pane {
+        display: none;
+    }
+}
