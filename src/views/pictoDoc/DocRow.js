@@ -23,7 +23,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
                         {...p.draggableProps}
                         {...p.dragHandleProps}
                         ref={p.innerRef}
-                        className="doc-row-col"
+                        className="doc-row-col flex-shrink-1"
                     >
                         <DocCard deleteMethod={deleteCardMethod} card={card} />
                     </Col>
@@ -46,7 +46,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
                                 onMouseLeave={handleHoverLeave}
                                 onMouseEnter={handleHover}
                             >
-                                <Row className="no-gutters">{renderCards()}</Row>
+                                <Row className="no-gutters flex-nowrap">{renderCards()}</Row>
                                 <Row>
                                     <Col className="text-right">
                                         <button onClick={() => deleteMethod(row.id)} className="btn-danger btn btn-sm doc-row-delete" style={styleObj}>
