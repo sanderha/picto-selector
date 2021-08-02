@@ -12,7 +12,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
     const renderCards = () => {
         return row.cardsIds.map((cardId, i) => {
             const card = cards.find(card => card.id === cardId);
-            if(!card){
+            if (!card) {
                 return null;
             }
 
@@ -46,7 +46,10 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
                                 onMouseLeave={handleHoverLeave}
                                 onMouseEnter={handleHover}
                             >
-                                <Row className="no-gutters flex-nowrap">{renderCards()}</Row>
+                                <Row className="no-gutters flex-nowrap">
+                                    {renderCards()}
+                                    {provided.placeholder}
+                                </Row>
                                 <Row>
                                     <Col className="text-right">
                                         <button onClick={() => deleteMethod(row.id)} className="btn-danger btn btn-sm doc-row-delete" style={styleObj}>
@@ -54,7 +57,6 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
                                         </button>
                                     </Col>
                                 </Row>
-                                {provided.placeholder}
                             </div>
                         )
                     }}
