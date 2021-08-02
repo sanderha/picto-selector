@@ -42,7 +42,7 @@ $card-height: 100px;
 
 .doc-row {
     position:relative;
-    min-height: $card-height;
+    min-height: $card-height + 5px;
     //overflow-x: auto;
     //white-space: nowrap;
     &-col {
