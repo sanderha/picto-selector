@@ -8,6 +8,3 @@ this is a work in progress
 
 
 
-#### TODO
-
-- host on github pages for now
