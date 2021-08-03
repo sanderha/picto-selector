@@ -11,7 +11,7 @@ import { rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggabl
 
 function App() {
     const [rows, setRows] = useState([
-        { id: 1, cardsIds: []}, { id: 2, cardsIds: []}
+        { id: 1, cardsIds: []}, { id: 2, cardsIds: []}, { id: 3, cardsIds: []}
     ]);
     const [cards, setCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
@@ -87,7 +87,7 @@ function App() {
                             settings and picto's here
                             <Row className="mt-4">
                                 <Col>
-                                    <CardsBank cards={orignalCards} />
+                                    <CardsBank cards={orignalCards} userIsDragging={userIsDragging}/>
                                 </Col>
                             </Row>
                         </Col>
