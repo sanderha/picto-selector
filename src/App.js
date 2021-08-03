@@ -2,16 +2,17 @@ import './App.scss';
 
 import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import PictoDoc from './views/PictoDoc';
 import CardsBank from './views/CardsBank';
 import { rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, incrementId, createCardObj, reorderItems } from './functions/utilities'
+import { Row, Col, Container } from 'react-bootstrap';
 
 function App() {
+    const [docSettings, setDocSettings] = useState({
+        title: null
+    });
     const [rows, setRows] = useState([
-        { id: 1, cardsIds: []}, { id: 2, cardsIds: []}, { id: 3, cardsIds: []}
+        { id: 1, cardsIds: [] }, { id: 2, cardsIds: [] }, { id: 3, cardsIds: [] }
     ]);
     const [cards, setCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
@@ -34,7 +35,7 @@ function App() {
         if (!destination) {
             return;
         }
-        console.log(result);
+
         // if came from row, remove that from the row
         if (destination.droppableId === 'card-bank-droppable') {
             const cardId = cardIdFromDraggableId(draggableId);
@@ -77,22 +78,30 @@ function App() {
         setCards([...cards, newCard]);
     }
 
-
     return (
         <div className="picto-app">
             <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 <Container fluid className="p-3">
                     <Row>
-                        <Col className="settings-pane" sm={4}>
-                            settings and picto's here
+                        <Col className={`settings-pane ${userIsDragging ? "settings-pane--disabled" : ""}`} sm={4}>
+                            <div class="form-group">
+                                <label for="title">Document title</label>
+                                <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter title" value={docSettings.title} onChange={e => setDocSettings({ ...docSettings, title: e.target.value })} />
+                                <small id="titleHelp" class="form-text text-muted">This title will appear at the top of the document</small>
+                            </div>
+                            <Row>
+                                <Col>
+                                    <hr />
+                                </Col>
+                            </Row>
                             <Row className="mt-4">
                                 <Col>
-                                    <CardsBank cards={orignalCards} userIsDragging={userIsDragging}/>
+                                    <CardsBank cards={orignalCards} userIsDragging={userIsDragging} />
                                 </Col>
                             </Row>
                         </Col>
                         <Col className="picto-doc-wrapper-col">
-                            <PictoDoc userIsDragging={userIsDragging} setCardsMethod={setCards} setRowsMethod={setRows} rows={rows} cards={cards} />
+                            <PictoDoc settings={docSettings} userIsDragging={userIsDragging} setCardsMethod={setCards} setRowsMethod={setRows} rows={rows} cards={cards} />
                         </Col>
                     </Row>
                 </Container>

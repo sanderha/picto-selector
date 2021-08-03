@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 import { createRowObj, incrementId } from "../functions/utilities";
 import DocRow from "./pictoDoc/DocRow";
 
-export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, userIsDragging }) {
+export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, userIsDragging, settings }) {
 
     const handleAddRow = () => {
         const alteredRows = [...rows];
@@ -28,8 +28,19 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
 
     const rowCards = (rowId) => cards.filter(card => rowId === card.rowId)
 
+    const renderTitle = () => {
+        if (!settings.title) return;
+
+        return <Row>
+            <Col>
+                <h1 className="doc-title">{settings.title}</h1>
+            </Col>
+        </Row>
+    }
+
     return (
-        <div className={`doc${userIsDragging ? " doc--is-dragging" : null}`}>
+        <div className={`doc${userIsDragging ? " doc--is-dragging" : ""}`}>
+            {renderTitle()}
             {rows.map((row, i) => <DocRow key={i} row={row} deleteCardMethod={deleteCard} deleteMethod={deleteRow} cards={rowCards(row.id)} />)}
             <div className="text-center">
                 <Row className="justify-content-md-center">

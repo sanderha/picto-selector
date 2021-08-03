@@ -2,14 +2,14 @@
 $card-spacer-x: .10rem;
 
 $grid-gutter-width: 10px;
+$headings-margin-bottom: 2rem;
 
 @import "~bootstrap/scss/bootstrap";
-
-
 
 // custom
 
 $card-height: 100px;
+
 
 .doc {
     &--is-dragging {
@@ -20,6 +20,7 @@ $card-height: 100px;
 }
 
 .doc-card {
+    position: relative;
     min-height: $card-height;
     max-width: 140px;
     margin-bottom: 15px;
@@ -35,6 +36,7 @@ $card-height: 100px;
         box-shadow: 0px 0px 10px #c4c4c4;
         transform: scale(1.05);
         background-color: transparent !important;
+        z-index: 999;
     }
     &__delete {
         position: absolute;
@@ -77,6 +79,10 @@ $card-height: 100px;
     }
 }
 
+.doc-title {
+    text-align: center;
+}
+
 .doc-row-delete {
     position: absolute;
     top: 0;
@@ -93,6 +99,13 @@ img {
         .doc-card:not(.doc-card--floating){
             opacity: .4;
         }
+    }
+}
+
+.settings-pane {
+    padding-right: 3rem;
+    &--disabled {
+        opacity: .4;
     }
 }
 
