@@ -9,6 +9,8 @@ import useRevealOnHover from '../../hooks/useRevealOnHover';
 export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
     const { styleObj, handleHover, handleHoverLeave } = useRevealOnHover();
 
+    const hasCards = () => row.cardsIds.length;
+
     const renderCards = () => {
         return row.cardsIds.map((cardId, i) => {
             const card = cards.find(card => card.id === cardId);
@@ -37,18 +39,19 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
             <Col>
 
                 <Droppable droppableId={`row-${row.id}`} direction="horizontal">
-                    {(provided) => {
+                    {(provided, snapshot) => {
                         return (
                             <div
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
-                                className="doc-row card mb-2"
+                                className={`doc-row card mb-2${snapshot.isDraggingOver ? " doc-row--is-dragged-over" : ""}${!hasCards() ? " doc-row--is-empty" : ""}`}
                                 onMouseLeave={handleHoverLeave}
                                 onMouseEnter={handleHover}
                             >
-                                <Row className="no-gutters flex-nowrap">
+                                <Row className={`no-gutters flex-nowrap`}>
                                     {renderCards()}
                                     {provided.placeholder}
+                                    {!hasCards() && <div className="doc-row__empty-text">Drag pictures here!</div>}
                                 </Row>
                                 <Row>
                                     <Col className="text-right">

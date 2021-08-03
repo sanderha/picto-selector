@@ -43,12 +43,25 @@ $card-height: 100px;
 .doc-row {
     position:relative;
     min-height: $card-height + 5px;
-    //overflow-x: auto;
-    //white-space: nowrap;
+    border: none;
     &-col {
     }
-    @media print { 
-        border: none;
+    &__empty-text {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: darken($light, 25);
+    }
+    &--is-dragged-over {
+        background-color: lighten($color: $success, $amount: 55);
+    }
+    &--is-empty {
+        border: 2px dashed darken($light, 10);
+        @media print {
+            display: none;
+        }
     }
 }
 
