@@ -19,7 +19,7 @@ function App() {
         createCardObj({ name: "card1", originalId: 1, img: "putonclothes_c_l.jpg" }),
         createCardObj({ name: "card2", originalId: 2, img: "putoncoat_c_l.jpg" }),
         createCardObj({ name: "card3", originalId: 3, img: "putondress_c_l.jpg" }),
-        createCardObj({ name: "card4", originalId: 4, img: "putonshoes_c_l.jpg" })
+        createCardObj({ name: "card4", originalId: 4, img: "putonshoes_c_l.jpg" }),
     ];
 
     const onDragEnd = (result) => {
