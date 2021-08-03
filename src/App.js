@@ -14,6 +14,7 @@ function App() {
         { id: 1, cardsIds: []}, { id: 2, cardsIds: []}
     ]);
     const [cards, setCards] = useState([]);
+    const [userIsDragging, setUserIsDragging] = useState(false);
 
     const orignalCards = [
         createCardObj({ name: "card1", originalId: 1, img: "putonclothes_c_l.jpg" }),
@@ -22,7 +23,13 @@ function App() {
         createCardObj({ name: "card4", originalId: 4, img: "putonshoes_c_l.jpg" }),
     ];
 
+    const onDragStart = () => {
+        setUserIsDragging(true);
+    }
+
     const onDragEnd = (result) => {
+        setUserIsDragging(false);
+
         const { destination, source, draggableId } = result;
         if (!destination) {
             return;
@@ -70,9 +77,10 @@ function App() {
         setCards([...cards, newCard]);
     }
 
+
     return (
         <div className="picto-app">
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 <Container fluid className="p-3">
                     <Row>
                         <Col className="settings-pane" sm={4}>
@@ -84,7 +92,7 @@ function App() {
                             </Row>
                         </Col>
                         <Col className="picto-doc-wrapper-col">
-                            <PictoDoc setCardsMethod={setCards} setRowsMethod={setRows} rows={rows} cards={cards} />
+                            <PictoDoc userIsDragging={userIsDragging} setCardsMethod={setCards} setRowsMethod={setRows} rows={rows} cards={cards} />
                         </Col>
                     </Row>
                 </Container>

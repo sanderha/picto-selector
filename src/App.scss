@@ -11,6 +11,14 @@ $grid-gutter-width: 10px;
 
 $card-height: 100px;
 
+.doc {
+    &--is-dragging {
+        .doc-row:not(.doc-row--is-dragged-over) {
+            background-color: lighten($color: $success, $amount: 55);
+        }
+    }
+}
+
 .doc-card {
     min-height: $card-height;
     max-width: 140px;
@@ -44,6 +52,7 @@ $card-height: 100px;
     position:relative;
     min-height: $card-height + 5px;
     border: none;
+    transition: background-color .2s ease;
     &-col {
     }
     &__empty-text {
@@ -55,10 +64,11 @@ $card-height: 100px;
         color: darken($light, 25);
     }
     &--is-dragged-over {
-        background-color: lighten($color: $success, $amount: 55);
+        background-color: lighten($color: $success, $amount: 50);
     }
-    &--is-empty {
+    &--is-empty:not(&--is-dragged-over) {
         border: 2px dashed darken($light, 10);
+        background-color: $light;
         @media print {
             display: none;
         }
