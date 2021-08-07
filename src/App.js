@@ -6,6 +6,10 @@ import PictoDoc from './views/PictoDoc';
 import CardsBank from './views/CardsBank';
 import { rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, incrementId, createCardObj, reorderItems } from './functions/utilities'
 import { Row, Col, Container } from 'react-bootstrap';
+import putonclothes_c_l from './picto-images/putonclothes_c_l.jpg';
+import putonshoes_c_l from './picto-images/putonshoes_c_l.jpg';
+import putondress_c_l from './picto-images/putondress_c_l.jpg';
+import putoncoat_c_l from './picto-images/putoncoat_c_l.jpg';
 
 function App() {
     const [docSettings, setDocSettings] = useState({
@@ -18,10 +22,10 @@ function App() {
     const [userIsDragging, setUserIsDragging] = useState(false);
 
     const orignalCards = [
-        createCardObj({ name: "card1", originalId: 1, img: "putonclothes_c_l.jpg" }),
-        createCardObj({ name: "card2", originalId: 2, img: "putoncoat_c_l.jpg" }),
-        createCardObj({ name: "card3", originalId: 3, img: "putondress_c_l.jpg" }),
-        createCardObj({ name: "card4", originalId: 4, img: "putonshoes_c_l.jpg" }),
+        createCardObj({ name: "card1", originalId: 1, img: putonclothes_c_l }),
+        createCardObj({ name: "card2", originalId: 2, img: putoncoat_c_l }),
+        createCardObj({ name: "card3", originalId: 3, img: putondress_c_l }),
+        createCardObj({ name: "card4", originalId: 4, img: putonshoes_c_l }),
     ];
 
     const onDragStart = () => {
