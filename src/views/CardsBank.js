@@ -23,6 +23,7 @@ export default function CardsBank({ cards, userIsDragging }) {
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
                                                         ref={provided.innerRef}
+                                                        className="draggable-wrapper"
                                                     >
                                                         <ReadOnlyDocCard isFloating={snapshot.isDragging} card={card} />
 
