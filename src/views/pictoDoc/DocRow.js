@@ -7,7 +7,7 @@ import useRevealOnHover from '../../hooks/useRevealOnHover';
 
 
 export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
-    const { styleObj, handleHover, handleHoverLeave } = useRevealOnHover();
+    const { handleHover, handleHoverLeave } = useRevealOnHover();
 
     const hasCards = () => row.cardsIds.length;
 
@@ -52,13 +52,6 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
                                     {renderCards()}
                                     {provided.placeholder}
                                     {!hasCards() && <div className="doc-row__empty-text">Drag pictures here!</div>}
-                                </Row>
-                                <Row>
-                                    <Col className="text-right">
-                                        <button onClick={() => deleteMethod(row.id)} className="btn-danger btn btn-sm doc-row-delete" style={styleObj}>
-                                            Delete row
-                                        </button>
-                                    </Col>
                                 </Row>
                             </div>
                         )
