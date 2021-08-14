@@ -2,7 +2,7 @@ import React from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import ReadOnlyDocCard from './pictoDoc/ReadOnlyDocCard'
+import ReadOnlyDocCard from '../pictoDoc/ReadOnlyDocCard'
 
 export default function CardsBank({ cards, userIsDragging }) {
 
@@ -10,7 +10,7 @@ export default function CardsBank({ cards, userIsDragging }) {
         <div className={`cards-bank ${userIsDragging ? "cards-bank--dragging" : ""}`}>
 
             <Droppable isDropDisabled={true} droppableId="card-bank-droppable">
-                {(provided, snapshot) => {
+                {(provided) => {
                     return <div ref={provided.innerRef} {...provided.droppableProps}>
                         <Row>
                             {cards.map((card, i) => {

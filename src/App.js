@@ -3,17 +3,17 @@ import './App.scss';
 import { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd'
 import PictoDoc from './views/PictoDoc';
-import CardsBank from './views/CardsBank';
 import { createRowObj, rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, incrementId, reorderItems } from './functions/utilities'
 import { Row, Col, Container } from 'react-bootstrap';
 import { defaultCards, defaultDocSettings, defaultRows } from './misc/defaults';
-import Setup from './views/Setup';
+import SettingsPane from './views/SettingsPane';
 
 function App() {
     const [docSettings, setDocSettings] = useState(defaultDocSettings);
     const [rows, setRows] = useState(defaultRows);
     const [cards, setCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
+    const [editCardSettings, setEditCardSettings] = useState({ visible: false, cardId: null });
 
     useEffect(() => {
         // check if there are rows with no cards, then add new empty row
@@ -23,15 +23,21 @@ function App() {
             }
             const lastRow = rows[rows.length - 1];
             const lastDefaultRow = defaultRows[defaultRows.length - 1];
-            if(lastRow.id === lastDefaultRow.id && !lastRow.cardsIds.length){
+            if (lastRow.id === lastDefaultRow.id && !lastRow.cardsIds.length) {
                 return;
             }
-            if (lastRow.cardsIds.length) { 
+            if (lastRow.cardsIds.length) {
                 setRows([...rows, createRowObj(incrementId(rows))]);
             }
         }
         ensureNewEmptyRow();
     }, [cards.length, rows, userIsDragging]);
+
+    useEffect(() => {
+        if (!editCardSettings.visible && editCardSettings.cardId !== null) {
+            setEditCardSettings({ ...editCardSettings, cardId: null });
+        }
+    }, [editCardSettings]);
 
     const onDragStart = () => {
         setUserIsDragging(true);
@@ -92,18 +98,8 @@ function App() {
             <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 <Container fluid className="p-3">
                     <Row>
-                        <Col className={`settings-pane ${userIsDragging ? "settings-pane--disabled" : ""}`} sm={4}>
-                            <Setup settings={docSettings} setSettings={setDocSettings}/>
-                            <Row>
-                                <Col>
-                                    <hr />
-                                </Col>
-                            </Row>
-                            <Row className="mt-4">
-                                <Col>
-                                    <CardsBank cards={defaultCards} userIsDragging={userIsDragging} />
-                                </Col>
-                            </Row>
+                        <Col sm={4}>
+                            <SettingsPane settings={docSettings} setSettings={setDocSettings} userIsDragging={userIsDragging} editCardSettings={editCardSettings} setEditCardSettings={setEditCardSettings}/>
                         </Col>
                         <Col className="picto-doc-wrapper-col">
                             <PictoDoc settings={docSettings} userIsDragging={userIsDragging} setCardsMethod={setCards} setRowsMethod={setRows} rows={rows} cards={cards} />
