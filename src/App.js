@@ -1,32 +1,37 @@
 import './App.scss';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd'
 import PictoDoc from './views/PictoDoc';
 import CardsBank from './views/CardsBank';
-import { rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, incrementId, createCardObj, reorderItems } from './functions/utilities'
+import { createRowObj, rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, incrementId, reorderItems } from './functions/utilities'
 import { Row, Col, Container } from 'react-bootstrap';
-import putonclothes_c_l from './picto-images/putonclothes_c_l.jpg';
-import putonshoes_c_l from './picto-images/putonshoes_c_l.jpg';
-import putondress_c_l from './picto-images/putondress_c_l.jpg';
-import putoncoat_c_l from './picto-images/putoncoat_c_l.jpg';
+import { defaultCards, defaultDocSettings, defaultRows } from './misc/defaults';
 
 function App() {
-    const [docSettings, setDocSettings] = useState({
-        title: null
-    });
-    const [rows, setRows] = useState([
-        { id: 1, cardsIds: [] }, { id: 2, cardsIds: [] }, { id: 3, cardsIds: [] }
-    ]);
+    const [docSettings, setDocSettings] = useState(defaultDocSettings);
+    const [rows, setRows] = useState(defaultRows);
     const [cards, setCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
 
-    const orignalCards = [
-        createCardObj({ name: "card1", originalId: 1, img: putonclothes_c_l }),
-        createCardObj({ name: "card2", originalId: 2, img: putoncoat_c_l }),
-        createCardObj({ name: "card3", originalId: 3, img: putondress_c_l }),
-        createCardObj({ name: "card4", originalId: 4, img: putonshoes_c_l }),
-    ];
+    useEffect(() => {
+        // check if there are rows with no cards, then add new empty row
+        const ensureNewEmptyRow = () => {
+            if (!rows.length) {
+                return;
+            }
+            const lastRow = rows[rows.length - 1];
+            const lastDefaultRow = defaultRows[defaultRows.length - 1];
+            if(lastRow.id === lastDefaultRow.id && !lastRow.cardsIds.length){
+                return;
+            }
+            if (lastRow.cardsIds.length) { 
+                const currentHighestIdRow = Math.max(...rows.map(r => r.id));
+                setRows([...rows, createRowObj(currentHighestIdRow + 1)]);
+            }
+        }
+        ensureNewEmptyRow();
+    }, [cards.length, rows, userIsDragging]);
 
     const onDragStart = () => {
         setUserIsDragging(true);
@@ -72,7 +77,7 @@ function App() {
     }
 
     const addCardToRow = (rowId, cardOriginalId, index, sourceIndex) => {
-        const originalCard = orignalCards.find(card => card.originalId === cardOriginalId);
+        const originalCard = defaultCards.find(card => card.originalId === cardOriginalId);
         const row = rows.find(obj => obj.id === rowId);
         let newCard = { ...originalCard };
         newCard.id = incrementId(cards);
@@ -88,10 +93,10 @@ function App() {
                 <Container fluid className="p-3">
                     <Row>
                         <Col className={`settings-pane ${userIsDragging ? "settings-pane--disabled" : ""}`} sm={4}>
-                            <div class="form-group">
-                                <label for="title">Document title</label>
-                                <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter title" value={docSettings.title} onChange={e => setDocSettings({ ...docSettings, title: e.target.value })} />
-                                <small id="titleHelp" class="form-text text-muted">This title will appear at the top of the document</small>
+                            <div className="form-group">
+                                <label htmlFor="title">Document title</label>
+                                <input type="text" className="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter title" value={docSettings.title || ''} onChange={e => setDocSettings({ ...docSettings, title: e.target.value })} />
+                                <small id="titleHelp" className="form-text text-muted">This title will appear at the top of the document</small>
                             </div>
                             <Row>
                                 <Col>
@@ -100,7 +105,7 @@ function App() {
                             </Row>
                             <Row className="mt-4">
                                 <Col>
-                                    <CardsBank cards={orignalCards} userIsDragging={userIsDragging} />
+                                    <CardsBank cards={defaultCards} userIsDragging={userIsDragging} />
                                 </Col>
                             </Row>
                         </Col>
