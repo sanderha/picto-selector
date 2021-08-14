@@ -45,10 +45,7 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
             <div className="text-center">
                 <Row className="justify-content-md-center">
                     <Col className="col-md-auto">
-                        <AddRowBtn addRowMethod={handleAddRow} />
-                    </Col>
-                    <Col className="col-md-auto">
-                        <PrintBtn />
+                        {cards.length ? <PrintBtn /> : null}
                     </Col>
                 </Row>
             </div>
