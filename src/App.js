@@ -7,6 +7,7 @@ import CardsBank from './views/CardsBank';
 import { createRowObj, rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, incrementId, reorderItems } from './functions/utilities'
 import { Row, Col, Container } from 'react-bootstrap';
 import { defaultCards, defaultDocSettings, defaultRows } from './misc/defaults';
+import Setup from './views/Setup';
 
 function App() {
     const [docSettings, setDocSettings] = useState(defaultDocSettings);
@@ -26,8 +27,7 @@ function App() {
                 return;
             }
             if (lastRow.cardsIds.length) { 
-                const currentHighestIdRow = Math.max(...rows.map(r => r.id));
-                setRows([...rows, createRowObj(currentHighestIdRow + 1)]);
+                setRows([...rows, createRowObj(incrementId(rows))]);
             }
         }
         ensureNewEmptyRow();
@@ -93,11 +93,7 @@ function App() {
                 <Container fluid className="p-3">
                     <Row>
                         <Col className={`settings-pane ${userIsDragging ? "settings-pane--disabled" : ""}`} sm={4}>
-                            <div className="form-group">
-                                <label htmlFor="title">Document title</label>
-                                <input type="text" className="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter title" value={docSettings.title || ''} onChange={e => setDocSettings({ ...docSettings, title: e.target.value })} />
-                                <small id="titleHelp" className="form-text text-muted">This title will appear at the top of the document</small>
-                            </div>
+                            <Setup settings={docSettings} setSettings={setDocSettings}/>
                             <Row>
                                 <Col>
                                     <hr />

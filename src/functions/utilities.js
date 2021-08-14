@@ -15,23 +15,14 @@ export const createCardObj = ({ id, name, rowId, originalId, img }) => {
     }
 }
 
-export const incrementId = (items) => {
-    let highestId = 0;
-    items.forEach(item => {
-        if (item.id > highestId) {
-            highestId = item.id;
-        }
-    })
-
-    return highestId + 1;
-}
+export const incrementId = (items) => Math.max(...items.map(r => r.id)) + 1;
 
 export const reorderItems = (items, oldIndex, newIndex, newItem) => {
     let reordered = [...items];
-    if(oldIndex){
+    if (oldIndex) {
         reordered.splice(oldIndex, 1);
     }
-    
+
     reordered.splice(newIndex, 0, newItem);
     return reordered;
 }
