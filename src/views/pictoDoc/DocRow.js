@@ -6,7 +6,7 @@ import DocCard from './DocCard'
 import useRevealOnHover from '../../hooks/useRevealOnHover';
 
 
-export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
+export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, editCardSettings, setEditCardSettings }) {
     const { handleHover, handleHoverLeave } = useRevealOnHover();
 
     const hasCards = () => row.cardsIds.length;
@@ -27,7 +27,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row }) {
                         ref={p.innerRef}
                         className="doc-row-col flex-shrink-1"
                     >
-                        <DocCard deleteMethod={deleteCardMethod} card={card} />
+                        <DocCard deleteMethod={deleteCardMethod} card={card} editSettings={editCardSettings} setEditSettings={setEditCardSettings}/>
                     </Col>
                 }}
             </Draggable>

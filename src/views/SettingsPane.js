@@ -16,7 +16,7 @@ export default function SettingsPane({ settings, setSettings, userIsDragging, ed
     }
 
     const renderCardSettings = () => {
-        return '(TODO: card settings)'
+        return '(TODO: card settings)' + editCardSettings.cardId
     }
 
     return (

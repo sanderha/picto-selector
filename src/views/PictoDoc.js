@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import DocRow from "./pictoDoc/DocRow";
 
-export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, userIsDragging, settings }) {
+export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, userIsDragging, settings, editCardSettings, setEditCardSettings }) {
     const deleteRow = (rowId) => {
         setRowsMethod(rows.filter(row => row.id !== rowId))
         setCardsMethod(cards.filter(card => card.rowId !== rowId));
@@ -29,10 +29,24 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
         </Row>
     }
 
+    const renderRows = () => {
+        return rows.map((row, i) => {
+            return <DocRow 
+                key={i} 
+                row={row} 
+                deleteCardMethod={deleteCard} 
+                deleteMethod={deleteRow} 
+                cards={rowCards(row.id)} 
+                editCardSettings={editCardSettings}
+                setEditCardSettings={setEditCardSettings}
+            />
+        })
+    }
+
     return (
         <div className={`doc${userIsDragging ? " doc--is-dragging" : ""}`}>
             {renderTitle()}
-            {rows.map((row, i) => <DocRow key={i} row={row} deleteCardMethod={deleteCard} deleteMethod={deleteRow} cards={rowCards(row.id)} />)}
+            {renderRows()}
             <div className="text-center">
                 <Row className="justify-content-md-center">
                     <Col className="col-md-auto">

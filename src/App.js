@@ -27,7 +27,8 @@ function App() {
                 return;
             }
             if (lastRow.cardsIds.length) {
-                setRows([...rows, createRowObj(incrementId(rows))]);
+                const newEmptyRow = createRowObj(incrementId(rows));
+                setRows([...rows, newEmptyRow]);
             }
         }
         ensureNewEmptyRow();
@@ -99,10 +100,19 @@ function App() {
                 <Container fluid className="p-3">
                     <Row>
                         <Col sm={4}>
-                            <SettingsPane settings={docSettings} setSettings={setDocSettings} userIsDragging={userIsDragging} editCardSettings={editCardSettings} setEditCardSettings={setEditCardSettings}/>
+                            <SettingsPane settings={docSettings} setSettings={setDocSettings} userIsDragging={userIsDragging} editCardSettings={editCardSettings} setEditCardSettings={setEditCardSettings} />
                         </Col>
                         <Col className="picto-doc-wrapper-col">
-                            <PictoDoc settings={docSettings} userIsDragging={userIsDragging} setCardsMethod={setCards} setRowsMethod={setRows} rows={rows} cards={cards} />
+                            <PictoDoc
+                                settings={docSettings} 
+                                userIsDragging={userIsDragging} 
+                                setCardsMethod={setCards} 
+                                setRowsMethod={setRows} 
+                                rows={rows} 
+                                cards={cards} 
+                                editCardSettings={editCardSettings}
+                                setEditCardSettings={setEditCardSettings}
+                            />
                         </Col>
                     </Row>
                 </Container>
