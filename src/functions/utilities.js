@@ -1,3 +1,5 @@
+import { CARD_TITLE_ABOVE } from "../misc/constants";
+
 export const createRowObj = (id) => {
     return {
         id: id,
@@ -11,14 +13,16 @@ export const createCardObj = ({ id, name, rowId, originalId, img }) => {
         name: name,
         rowId: rowId,
         originalId: originalId,
-        img: img
+        img: img,
+        title: null,
+        titlePosition: CARD_TITLE_ABOVE
     }
 }
 
 export const incrementId = (items) => {
     let highestId = 0;
     items.forEach(item => {
-        if(item.id && item.id > highestId){
+        if (item.id && item.id > highestId) {
             highestId = item.id;
         }
     });
@@ -52,4 +56,17 @@ export const cardOriginalIdFromDraggableId = (draggableId) => {
     const val = draggableId.split('card-org-id-');
 
     return +(val[1]) || null;
+}
+
+export const updateCardInList = (card, cardsList) => {
+    let indexToUpdate = null;
+    for (const [index, existingCard] of cardsList.entries()) {
+        if (existingCard.id === card.id) {
+            indexToUpdate = index;
+            break;
+        }
+    }
+    cardsList[indexToUpdate] = card;
+
+    return cardsList;
 }

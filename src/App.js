@@ -100,7 +100,15 @@ function App() {
                 <Container fluid className="p-3">
                     <Row>
                         <Col sm={4}>
-                            <SettingsPane settings={docSettings} setSettings={setDocSettings} userIsDragging={userIsDragging} editCardSettings={editCardSettings} setEditCardSettings={setEditCardSettings} />
+                            <SettingsPane 
+                                setCards={setCards} 
+                                cards={cards} 
+                                settings={docSettings} 
+                                setSettings={setDocSettings} 
+                                userIsDragging={userIsDragging} 
+                                editCardSettings={editCardSettings} 
+                                setEditCardSettings={setEditCardSettings} 
+                            />
                         </Col>
                         <Col className="picto-doc-wrapper-col">
                             <PictoDoc
