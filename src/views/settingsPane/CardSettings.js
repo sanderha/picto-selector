@@ -7,9 +7,7 @@ export default function CardSettings({ card, submitSettings, closeFunc }) {
     const [title, setTitle] = useState(card.title || '');
     const [titlePos, setTitlePos] = useState(card.titlePosition || CARD_TITLE_ABOVE);
 
-    useEffect(() => {
-        submitSettings({title, titlePosition: titlePos});
-    }, [title, titlePos]);
+    useEffect(() => submitSettings({title, titlePosition: titlePos}), [title, titlePos, submitSettings]);
 
     return (
         <div className="card-settings">

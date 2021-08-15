@@ -15,7 +15,6 @@ export default function DocCard({ card, deleteMethod, editSettings, setEditSetti
 
     return <Card body className="doc-card m-2 text-center">
         {card.title ? card.title : null}
-        <a onClick={handleSettingsClick}>toggle settings</a>
         {/**<a onClick={handleSettingsClick}>toggle settings</a>**/}
         <CardImg width="100%" src={card.img} alt={card.name} />
         <div className="doc-card__delete">
