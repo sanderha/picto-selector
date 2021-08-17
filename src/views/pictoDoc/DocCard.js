@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card'
 import CardImg from 'react-bootstrap/CardImg'
+import { CARD_TITLE_ABOVE, CARD_TITLE_BELOW } from '../../misc/constants';
 
 export default function DocCard({ card, deleteMethod, editSettings, setEditSettings }) {
 
@@ -13,14 +14,17 @@ export default function DocCard({ card, deleteMethod, editSettings, setEditSetti
         setEditSettings({visible: true, cardId: card.id});
     }
 
+    const renderTitle = () => card.title ? card.title : null; // TODO
+
     return <Card body className="doc-card m-2 text-center">
-        {card.title ? card.title : null}
-        {/**<a onClick={handleSettingsClick}>toggle settings</a>**/}
+        {card.titlePosition === CARD_TITLE_ABOVE && renderTitle()}
+        {<a onClick={handleSettingsClick}>toggle settings</a>}
         <CardImg width="100%" src={card.img} alt={card.name} />
         <div className="doc-card__delete">
             <button className="btn btn-sm btn-danger mt-2 " onClick={() => deleteMethod(card)}>
                 Delete
             </button>
         </div>
+        {card.titlePosition === CARD_TITLE_BELOW && renderTitle()}
     </Card>
 }

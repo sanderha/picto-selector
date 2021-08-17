@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import DocRow from "./pictoDoc/DocRow";
 
 export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, userIsDragging, settings, editCardSettings, setEditCardSettings }) {
+
     const deleteRow = (rowId) => {
         setRowsMethod(rows.filter(row => row.id !== rowId))
         setCardsMethod(cards.filter(card => card.rowId !== rowId));
@@ -16,8 +17,6 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
         // remove card
         setCardsMethod(cards.filter(c => c.id !== card.id))
     }
-
-    const rowCards = (rowId) => cards.filter(card => rowId === card.rowId)
 
     const renderTitle = () => {
         if (!settings.title) return;
@@ -36,7 +35,7 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
                 row={row} 
                 deleteCardMethod={deleteCard} 
                 deleteMethod={deleteRow} 
-                cards={rowCards(row.id)} 
+                cards={cards.filter(card => row.id === card.rowId)} 
                 editCardSettings={editCardSettings}
                 setEditCardSettings={setEditCardSettings}
             />
@@ -44,7 +43,7 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
     }
 
     return (
-        <div className={`doc${userIsDragging ? " doc--is-dragging" : ""}`}>
+        <div className={`doc${userIsDragging ? " doc--is-dragging" : ""}`}>   
             {renderTitle()}
             {renderRows()}
             <div className="text-center">

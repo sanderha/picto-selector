@@ -1,4 +1,3 @@
-
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
@@ -9,16 +8,9 @@ import useRevealOnHover from '../../hooks/useRevealOnHover';
 export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, editCardSettings, setEditCardSettings }) {
     const { handleHover, handleHoverLeave } = useRevealOnHover();
 
-    const hasCards = () => row.cardsIds.length;
-
     const renderCards = () => {
-        return row.cardsIds.map((cardId, i) => {
-            const card = cards.find(card => card.id === cardId);
-            if (!card) {
-                return null;
-            }
-
-            return <Draggable key={cardId} draggableId={'card-' + card.id} index={i}>
+        return cards.map((card, i) => {
+            return <Draggable key={i} draggableId={'card-' + card.id} index={i}>
                 {(p) => {
                     return <Col
                         sm="auto"
@@ -37,21 +29,20 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, edi
     return (
         <Row>
             <Col>
-
                 <Droppable droppableId={`row-${row.id}`} direction="horizontal">
                     {(provided, snapshot) => {
                         return (
                             <div
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
-                                className={`doc-row card mb-2${snapshot.isDraggingOver ? " doc-row--is-dragged-over" : ""}${!hasCards() ? " doc-row--is-empty" : ""}`}
+                                className={`doc-row card mb-2${snapshot.isDraggingOver ? " doc-row--is-dragged-over" : ""}${!cards.length ? " doc-row--is-empty" : ""}`}
                                 onMouseLeave={handleHoverLeave}
                                 onMouseEnter={handleHover}
                             >
                                 <Row className={`no-gutters flex-nowrap`}>
                                     {renderCards()}
                                     {provided.placeholder}
-                                    {!hasCards() && <div className="doc-row__empty-text">Drag pictures here!</div>}
+                                    {!cards.length && <div className="doc-row__empty-text">Drag pictures here!</div>}
                                 </Row>
                             </div>
                         )

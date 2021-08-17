@@ -7,7 +7,9 @@ export default function CardSettings({ card, submitSettings, closeFunc }) {
     const [title, setTitle] = useState(card.title || '');
     const [titlePos, setTitlePos] = useState(card.titlePosition || CARD_TITLE_ABOVE);
 
-    useEffect(() => submitSettings({title, titlePosition: titlePos}), [title, titlePos, submitSettings]);
+    //useEffect(() => submitSettings({title, titlePosition: titlePos}), [title, titlePos, submitSettings]);
+
+    const handleSave = () => submitSettings({title, titlePosition: titlePos});
 
     return (
         <div className="card-settings">
@@ -20,6 +22,9 @@ export default function CardSettings({ card, submitSettings, closeFunc }) {
                 <select type="text" className="form-control" id="card-title-pos" value={titlePos} onChange={e => setTitlePos(+e.target.value)}>
                     {cardTitleFieldValues.map((v, i) => <option key={i} value={v.value}>{v.label}</option>)}
                 </select>
+            </div>
+            <div className="text-center">
+                <button onClick={handleSave} className="btn btn-success">Save</button>
             </div>
         </div>
     );
