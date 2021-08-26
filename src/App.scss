@@ -38,16 +38,33 @@ $card-height: 100px;
         transform: scale(1.05);
         background-color: transparent !important;
     }
-    &__delete {
+    &__delete, &__settings-btn {
+        z-index: -1;
+        opacity: 0;
+
         position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -100%;
-        transition: .25s ease;
+        top: 2px;
+        transition: all .15s;
+        cursor: pointer;
+        color: #ccc;
+        &:hover {
+            color: #333;
+            transform: scale(1.1);
+        }
+    }
+    &__delete {
+        left: 4px;
+        &:hover {
+            color: $danger;
+        }
+    }
+    &__settings-btn {
+        right: 4px;
     }
     &:hover {
-        .doc-card__delete {
-            bottom: 10%;
+        .doc-card__settings-btn, .doc-card__delete {
+            opacity: 1;
+            z-index: 1;
         }
     }
 }
@@ -97,6 +114,13 @@ $card-height: 100px;
 
 img {
     max-width: 100%;
+}
+
+button {
+    &.clean-btn {
+        background: none;
+        border: none;
+    }
 }
 
 .cards-bank {
