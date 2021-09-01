@@ -19,6 +19,9 @@ export default function SettingsPane({ settings, setSettings, userIsDragging, ed
 
     const renderCardSettings = () => {
         const card = cards.find(c => c.id === editCardSettings.cardId);
+        if(!card){
+            return;
+        }
         const close = () => setEditCardSettings({...editCardSettings, visible: false});
         const submit = data => setCardSettingsData(data);
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { CARD_TITLE_ABOVE } from '../../misc/constants';
 import { cardTitleFieldValues } from "../../misc/defaults";
 
@@ -6,9 +6,6 @@ import { cardTitleFieldValues } from "../../misc/defaults";
 export default function CardSettings({ card, submitSettings, closeFunc }) {
     const [title, setTitle] = useState(card.title || '');
     const [titlePos, setTitlePos] = useState(card.titlePosition || CARD_TITLE_ABOVE);
-
-    //useEffect(() => submitSettings({title, titlePosition: titlePos}), [title, titlePos, submitSettings]);
-
     const handleSave = () => submitSettings({title, titlePosition: titlePos});
 
     return (

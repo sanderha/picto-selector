@@ -21,10 +21,11 @@ function App() {
             const card = cards.find(c => c.id === editCardSettings.cardId);
             const updatedCard = {...card, ...cardSettingsData};
             const updatedCards = updateCardInList(updatedCard, cards);
-            setCards(updatedCards);
+            setCards([...updatedCards]);
         }
         updateCardSettings();
-    }, [cardSettingsData, editCardSettings.cardId, cards]);
+        test();
+    }, [cardSettingsData, editCardSettings.cardId]);
 
     useEffect(() => {
         // check if there are rows with no cards, then add new empty row

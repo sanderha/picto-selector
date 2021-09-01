@@ -15,7 +15,8 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
         const row = rows.find(row => row.id === card.rowId);
         row.cardsIds = row.cardsIds.filter(item => item !== card.id);
         // remove card
-        setCardsMethod(cards.filter(c => c.id !== card.id))
+        setCardsMethod([...cards.filter(c => c.id !== card.id)])
+        setEditCardSettings({...editCardSettings, visible: false});
     }
 
     const renderTitle = () => {

@@ -5,8 +5,10 @@ export default function useEditCardSettings(){
     const [cardSettingsData, setCardSettingsData] = useState({});
 
     useEffect(() => {
+        // RESET
         if (!editCardSettings.visible && editCardSettings.cardId !== null) {
             setEditCardSettings({ ...editCardSettings, cardId: null });
+            setCardSettingsData({});
         }
     }, [editCardSettings]);
 

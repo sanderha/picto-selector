@@ -8,6 +8,7 @@ import useRevealOnHover from '../../hooks/useRevealOnHover';
 export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, editCardSettings, setEditCardSettings }) {
     const { handleHover, handleHoverLeave } = useRevealOnHover();
 
+
     const renderCards = () => {
         return cards.map((card, i) => {
             return <Draggable key={i} draggableId={'card-' + card.id} index={i}>
