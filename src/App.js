@@ -24,7 +24,6 @@ function App() {
             setCards([...updatedCards]);
         }
         updateCardSettings();
-        test();
     }, [cardSettingsData, editCardSettings.cardId]);
 
     useEffect(() => {
