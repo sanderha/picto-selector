@@ -15,7 +15,8 @@ export const createCardObj = ({ id, name, rowId, originalId, img }) => {
         originalId: originalId,
         img: img,
         title: null,
-        titlePosition: CARD_TITLE_ABOVE
+        titlePosition: CARD_TITLE_ABOVE,
+        border: 0
     }
 }
 

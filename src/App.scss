@@ -134,9 +134,26 @@ button {
 .settings-pane {
     position: relative;
     z-index: 1;
-    padding-right: 3rem;
+    border-right: 1px solid #eaeaea;
+    height: 100%;
+    padding-right: 1.5rem;
+    margin-right: 1rem;
     &--disabled {
         opacity: .4;
+    }
+}
+
+.card-settings {
+    &__close {
+        position: absolute;
+        top: .2rem;
+        right: 1.25rem;
+        font-size: 20px;
+        opacity: 0.3;
+        transition: all .25s;
+        &:hover {
+            opacity: 1;
+        }
     }
 }
 
