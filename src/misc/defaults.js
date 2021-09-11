@@ -14,8 +14,7 @@ export const defaultCards = [
 
 export const defaultRows = [
     createRowObj(1),
-    createRowObj(2),
-    createRowObj(3),
+    createRowObj(2)
 ]
 
 export const defaultDocSettings = {

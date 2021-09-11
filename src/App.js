@@ -24,6 +24,7 @@ function App() {
             setCards([...updatedCards]);
         }
         updateCardSettings();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cardSettingsData, editCardSettings.cardId]);
 
     useEffect(() => {
@@ -104,7 +105,7 @@ function App() {
             <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 <Container fluid className="p-3">
                     <Row>
-                        <Col sm={4}>
+                        <Col className="hide-for-print" sm={4}>
                             <SettingsPane 
                                 setCards={setCards} 
                                 cards={cards} 

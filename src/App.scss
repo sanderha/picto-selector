@@ -158,7 +158,7 @@ button {
 }
 
 @media print {
-    .btn, .settings-pane {
+    .btn, .settings-pane, .hide-for-print {
         display: none;
     }
     @page { margin: 0; }
