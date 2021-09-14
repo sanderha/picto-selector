@@ -11,7 +11,7 @@ import useEditCardSettings from './hooks/useEditCardSettings';
 
 function App() {
     const [docSettings, setDocSettings] = useState(defaultDocSettings);
-    const [rows, setRows] = useState(defaultRows);
+    const [rows, setRows] = useState([]);
     const [cards, setCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
     const [editCardSettings, setEditCardSettings, cardSettingsData, setCardSettingsData] = useEditCardSettings();
@@ -34,10 +34,7 @@ function App() {
                 return;
             }
             const lastRow = rows[rows.length - 1];
-            const lastDefaultRow = defaultRows[defaultRows.length - 1];
-            if (lastRow.id === lastDefaultRow.id && !lastRow.cardsIds.length) {
-                return;
-            }
+            // last row has cards, add another empty row
             if (lastRow.cardsIds.length) {
                 const newEmptyRow = createRowObj(incrementId(rows));
                 setRows([...rows, newEmptyRow]);
@@ -45,6 +42,33 @@ function App() {
         }
         ensureNewEmptyRow();
     }, [cards.length, rows, userIsDragging]);
+
+    useEffect(() => {
+        const cleanupExcessRows = () => {
+            // if only empty rows exist, its ok
+            if(!rows.find(row => row.cardsIds.length)){
+                return;
+            }
+            const lastRowId = rows[rows.length - 1].id;
+            const rowsToKeep = [];
+            rows.forEach((row, i) => {
+                if(!row.cardsIds.length && row.id !== lastRowId){
+                    rowsToKeep.push(row);
+                }
+            });
+            setRows(rowsToKeep);
+        }
+        //TODO is broken at the moment
+        //cleanupExcessRows();
+    }, [cards]);
+
+    useEffect(() => {
+        // reset to default state when no rows with items
+        if(!rows.length || !rows.find(row => row.cardsIds.length)){
+            setRows(defaultRows);
+        }
+    
+    }, [rows, cards.length]);
 
     const onDragStart = () => {
         setUserIsDragging(true);
