@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card'
 import CardImg from 'react-bootstrap/CardImg'
-import { CARD_TITLE_ABOVE, CARD_TITLE_BELOW } from '../../misc/constants';
+import { CARD_BORDER_DASHED, CARD_BORDER_SOLID, CARD_TITLE_ABOVE, CARD_TITLE_BELOW } from '../../misc/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 
@@ -18,7 +18,19 @@ export default function DocCard({ card, deleteMethod, editSettings, setEditSetti
 
     const renderTitle = () => card.title ? card.title : null; 
 
-    return <Card body className="doc-card m-2 text-center">
+    const classNames = () => {
+        let classes = `doc-card m-2 text-center`;
+        if(card.border === CARD_BORDER_SOLID){
+            classes += ' doc-card--border-solid'
+        }
+        if(card.border === CARD_BORDER_DASHED){
+            classes += ' doc-card--border-dashed'
+        }
+
+        return classes;
+    }
+
+    return <Card body className={classNames()} style={{borderColor: card.borderColor}}>
         {card.titlePosition === CARD_TITLE_ABOVE && renderTitle()}
         <button className="clean-btn doc-card__delete" onClick={() => deleteMethod(card)} title="delete">
                 <FontAwesomeIcon icon={faTrashAlt} />
