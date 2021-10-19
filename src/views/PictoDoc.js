@@ -2,6 +2,7 @@ import PrintBtn from "../components/PrintBtn";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import DocRow from "./pictoDoc/DocRow";
+import BottomAd from './ads/BottomAd';
 
 export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, userIsDragging, settings, editCardSettings, setEditCardSettings }) {
 
@@ -16,7 +17,7 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
         row.cardsIds = row.cardsIds.filter(item => item !== card.id);
         // remove card
         setCardsMethod([...cards.filter(c => c.id !== card.id)])
-        setEditCardSettings({...editCardSettings, visible: false});
+        setEditCardSettings({ ...editCardSettings, visible: false });
     }
 
     const renderTitle = () => {
@@ -31,14 +32,14 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
 
     const renderRows = () => {
         return rows.map((row, i) => {
-            return <DocRow 
-                key={i} 
-                row={row} 
-                deleteCardMethod={deleteCard} 
-                deleteMethod={deleteRow} 
-                cards={cards.filter(card => row.id === card.rowId).sort(function(a, b){  
+            return <DocRow
+                key={i}
+                row={row}
+                deleteCardMethod={deleteCard}
+                deleteMethod={deleteRow}
+                cards={cards.filter(card => row.id === card.rowId).sort(function (a, b) {
                     return row.cardsIds.indexOf(a.id) - row.cardsIds.indexOf(b.id);
-                  })} 
+                })}
                 editCardSettings={editCardSettings}
                 setEditCardSettings={setEditCardSettings}
             />
@@ -46,7 +47,7 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
     }
 
     return (
-        <div className={`doc${userIsDragging ? " doc--is-dragging" : ""}`}>   
+        <div className={`doc${userIsDragging ? " doc--is-dragging" : ""}`}>
             {renderTitle()}
             {renderRows()}
             <div className="text-center">
@@ -56,6 +57,11 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
                     </Col>
                 </Row>
             </div>
+            <Row>
+                <Col>
+                    <BottomAd />
+                </Col>
+            </Row>
         </div>
     );
 }
