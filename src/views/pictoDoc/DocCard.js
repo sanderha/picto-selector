@@ -9,24 +9,25 @@ export default function DocCard({ card, deleteMethod, editSettings, setEditSetti
     const handleSettingsClick = () => {
         // close again when clicking button on the current active card
         // otherwise stay open but with new card id
-        if(editSettings.cardId === card.id){
-            setEditSettings({visible: !editSettings.visible, cardId: card.id});
+        if (editSettings.cardId === card.id) {
+            setEditSettings({ visible: false, cardId: null });
             return;
         }
-        setEditSettings({visible: true, cardId: card.id});
+        setEditSettings({ visible: true, cardId: card.id });
     }
 
-    const renderTitle = () => card.title ? card.title : null; 
-
     return <Card body className="doc-card m-2 text-center">
-        {card.titlePosition === CARD_TITLE_ABOVE && renderTitle()}
-        <button className="clean-btn doc-card__delete" onClick={() => deleteMethod(card)} title="delete">
+        {card.titlePosition === CARD_TITLE_ABOVE && card?.title}
+        <div className="doc-card__image">
+            <button className="clean-btn doc-card__delete" onClick={() => deleteMethod(card)} title="delete">
                 <FontAwesomeIcon icon={faTrashAlt} />
             </button>
-        <button className="clean-btn doc-card__settings-btn" onClick={handleSettingsClick} title="edit">
-            <FontAwesomeIcon icon={faEdit} />
-        </button>
-        <CardImg width="100%" src={card.img} alt={card.name} />
-        {card.titlePosition === CARD_TITLE_BELOW && renderTitle()}
+            {editSettings.cardId === null ? <button className="clean-btn doc-card__settings-btn" onClick={handleSettingsClick} title="edit">
+                <FontAwesomeIcon icon={faEdit} />
+            </button> : null}
+            <CardImg width="100%" src={card.img} alt={card.name} />
+        </div>
+
+        {card.titlePosition === CARD_TITLE_BELOW && card?.title}
     </Card>
 }

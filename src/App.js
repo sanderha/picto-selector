@@ -24,7 +24,7 @@ function App() {
             setCards([...updatedCards]);
         }
         updateCardSettings();
-    }, [cardSettingsData, editCardSettings.cardId]);
+    }, [cardSettingsData, editCardSettings.cardId, editCardSettings.visible]);
 
     useEffect(() => {
         // check if there are rows with no cards, then add new empty row

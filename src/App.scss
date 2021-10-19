@@ -46,7 +46,7 @@ $card-height: 100px;
         top: 2px;
         transition: all .15s;
         cursor: pointer;
-        color: #ccc;
+        color: rgb(179, 179, 179);
         &:hover {
             color: #333;
             transform: scale(1.1);
@@ -61,8 +61,28 @@ $card-height: 100px;
     &__settings-btn {
         right: 4px;
     }
+    &__image {
+        position: relative;
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: all .25s;
+            background: rgba(#fff, .8);
+            opacity: 0;
+        }
+    }
+    
     &:hover {
         .doc-card__settings-btn, .doc-card__delete {
+            opacity: 1;
+            z-index: 2;
+        }
+        .doc-card__image::before {
             opacity: 1;
             z-index: 1;
         }
