@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { CARD_TITLE_ABOVE } from '../../misc/constants';
-import { cardBorderFieldValues, cardTitleFieldValues } from "../../misc/defaults";
+import { CARD_BORDER_COLOR_DEFAULT, CARD_TITLE_ABOVE } from '../../misc/constants';
+import { cardBorderFieldValues, cardTitleFieldValues, cardBorderColorFieldValues } from "../../misc/defaults";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons'
+import ColorInputField from './ColorInputField';
 
 export default function CardSettings({ card, submitSettings, closeFunc }) {
     const [title, setTitle] = useState(card.title || '');
     const [titlePos, setTitlePos] = useState(card.titlePosition || CARD_TITLE_ABOVE);
     const [border, setBorder] = useState(card.border || 0);
-    const handleSave = () => submitSettings({ title, titlePosition: titlePos, border });
+    const [borderColor, setBorderColor] = useState(card.borderColor || CARD_BORDER_COLOR_DEFAULT);
+    const handleSave = () => submitSettings({ title, titlePosition: titlePos, border, borderColor });
 
     return (
         <div className="card-settings">
@@ -35,6 +37,12 @@ export default function CardSettings({ card, submitSettings, closeFunc }) {
                 <select type="text" className="form-control" id="card-border" value={border} onChange={e => setBorder(+e.target.value)}>
                     {cardBorderFieldValues.map((v, i) => <option key={i} value={v.value}>{v.label}</option>)}
                 </select>
+            </div>
+            <div className="form-group">
+                <label>Border color</label>
+                <div className="row">
+                    {cardBorderColorFieldValues.map((c, i) => <div key={i} className="col col-auto"><ColorInputField onClick={()=> setBorderColor(c)} color={c} selected={borderColor === c}/></div>)}
+                </div>
             </div>
             <div className="row col text-center">
                 <button onClick={handleSave} className="btn btn-success">Save</button>

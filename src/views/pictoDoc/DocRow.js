@@ -40,7 +40,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, edi
                                 onMouseLeave={handleHoverLeave}
                                 onMouseEnter={handleHover}
                             >
-                                <Row className={`no-gutters flex-nowrap`}>
+                                <Row className={`no-gutters flex-nowrap align-items-center`}>
                                     {renderCards()}
                                     {provided.placeholder}
                                     {!cards.length && <div className="doc-row__empty-text">Drag pictures here!</div>}

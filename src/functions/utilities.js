@@ -1,4 +1,4 @@
-import { CARD_TITLE_ABOVE } from "../misc/constants";
+import { CARD_BORDER_COLOR_DEFAULT, CARD_TITLE_ABOVE } from "../misc/constants";
 
 export const createRowObj = (id) => {
     return {
@@ -16,7 +16,8 @@ export const createCardObj = ({ id, name, rowId, originalId, img }) => {
         img: img,
         title: null,
         titlePosition: CARD_TITLE_ABOVE,
-        border: 0
+        border: 0,
+        borderColor: CARD_BORDER_COLOR_DEFAULT
     }
 }
 
