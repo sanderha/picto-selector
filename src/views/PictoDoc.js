@@ -36,7 +36,9 @@ export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, u
                 row={row} 
                 deleteCardMethod={deleteCard} 
                 deleteMethod={deleteRow} 
-                cards={cards.filter(card => row.id === card.rowId)} 
+                cards={cards.filter(card => row.id === card.rowId).sort(function(a, b){  
+                    return row.cardsIds.indexOf(a.id) - row.cardsIds.indexOf(b.id);
+                  })} 
                 editCardSettings={editCardSettings}
                 setEditCardSettings={setEditCardSettings}
             />

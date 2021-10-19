@@ -11,7 +11,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, edi
 
     const renderCards = () => {
         return cards.map((card, i) => {
-            return <Draggable key={i} draggableId={'card-' + card.id} index={i}>
+            return <Draggable key={'card-' + card.id} draggableId={'card-' + card.id} index={i}>
                 {(p) => {
                     return <Col
                         sm="auto"

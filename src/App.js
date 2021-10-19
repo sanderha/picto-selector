@@ -76,7 +76,6 @@ function App() {
 
     const onDragEnd = (result) => {
         setUserIsDragging(false);
-
         const { destination, source, draggableId } = result;
         if (!destination) {
             return;
