@@ -1,9 +1,8 @@
-import { defaultCards } from "../misc/defaults";
 import Setup from "./settingsPane/Setup";
 import CardsBank from "./settingsPane/CardsBank";
 import CardSettings from "./settingsPane/CardSettings";
 
-export default function SettingsPane({ settings, setSettings, userIsDragging, editCardSettings, setEditCardSettings, cards, setCardSettingsData}) {
+export default function SettingsPane({ settings, setSettings, userIsDragging, editCardSettings, setEditCardSettings, cards, setCardSettingsData, bankCards}) {
 
     const renderDefaultView = () => {
         return (
@@ -11,7 +10,7 @@ export default function SettingsPane({ settings, setSettings, userIsDragging, ed
             <Setup settings={settings} setSettings={setSettings} />
             <hr />
             <div className="mt-4">
-                <CardsBank cards={defaultCards} userIsDragging={userIsDragging} />
+                <CardsBank cards={bankCards.slice(0,25)} userIsDragging={userIsDragging} />
             </div>
         </>
         )    

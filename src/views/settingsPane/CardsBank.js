@@ -6,6 +6,10 @@ import ReadOnlyDocCard from '../pictoDoc/ReadOnlyDocCard'
 
 export default function CardsBank({ cards, userIsDragging }) {
 
+    if(!cards.length){
+        return '(no cards)';
+    }
+
     return (
         <div className={`cards-bank ${userIsDragging ? "cards-bank--dragging" : ""}`}>
 

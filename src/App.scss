@@ -98,7 +98,7 @@ button {
 }
 
 @media print {
-    .btn, .settings-pane, .hide-for-print {
+    .btn, .settings-pane, .hide-for-print, .bottom-awt {
         display: none;
     }
     @page { margin: 0; }

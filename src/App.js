@@ -5,7 +5,8 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import PictoDoc from './views/PictoDoc';
 import { createRowObj, rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, incrementId, reorderItems, updateCardInList } from './functions/utilities'
 import { Row, Col, Container } from 'react-bootstrap';
-import { defaultCards, defaultDocSettings, defaultRows } from './misc/defaults';
+import { defaultDocSettings, defaultRows } from './misc/defaults';
+import { allCards } from './services/backend-service';
 import SettingsPane from './views/SettingsPane';
 import useEditCardSettings from './hooks/useEditCardSettings';
 
@@ -15,6 +16,13 @@ function App() {
     const [cards, setCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
     const [editCardSettings, setEditCardSettings, cardSettingsData, setCardSettingsData] = useEditCardSettings();
+    const [bankCards, setBankCards] = useState([]);
+
+    useEffect(() => {
+        allCards().then(data => {
+            setBankCards(data);
+        });
+    }, []);
 
     useEffect(() => {
         const updateCardSettings = () => {
@@ -113,7 +121,7 @@ function App() {
     }
 
     const addCardToRow = (rowId, cardOriginalId, index, sourceIndex) => {
-        const originalCard = defaultCards.find(card => card.originalId === cardOriginalId);
+        const originalCard = bankCards.find(card => card.originalId === cardOriginalId);
         const row = rows.find(obj => obj.id === rowId);
         let newCard = { ...originalCard };
         newCard.id = incrementId(cards);
@@ -138,6 +146,7 @@ function App() {
                                 editCardSettings={editCardSettings} 
                                 setEditCardSettings={setEditCardSettings} 
                                 setCardSettingsData={setCardSettingsData}
+                                bankCards={bankCards}
                             />
                         </Col>
                         <Col className="picto-doc-wrapper-col">

@@ -7,7 +7,7 @@ export const createRowObj = (id) => {
     }
 }
 
-export const createCardObj = ({ id, name, rowId, originalId, img }) => {
+export const createCardObj = ({ id, name, rowId, originalId, img, meta }) => {
     return {
         id: id,
         name: name,
@@ -17,7 +17,8 @@ export const createCardObj = ({ id, name, rowId, originalId, img }) => {
         title: null,
         titlePosition: CARD_TITLE_ABOVE,
         border: 0,
-        borderColor: CARD_BORDER_COLOR_DEFAULT
+        borderColor: CARD_BORDER_COLOR_DEFAULT,
+        meta: meta
     }
 }
 
