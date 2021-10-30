@@ -10,7 +10,7 @@ export default function SettingsPane({ settings, setSettings, userIsDragging, ed
             <Setup settings={settings} setSettings={setSettings} />
             <hr />
             <div className="mt-4">
-                <CardsBank cards={bankCards.slice(0,25)} userIsDragging={userIsDragging} />
+                <CardsBank cards={bankCards} userIsDragging={userIsDragging} />
             </div>
         </>
         )    
