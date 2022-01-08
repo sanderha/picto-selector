@@ -1,19 +1,23 @@
 import './App.scss';
 
 import { useState, useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd'
+import Modal from 'react-bootstrap/Modal'
+import ModalBody from 'react-bootstrap/ModalBody'
+import ModalHeader from 'react-bootstrap/ModalHeader'
 import PictoDoc from './views/PictoDoc';
 import { createRowObj, rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, incrementId, reorderItems, updateCardInList } from './functions/utilities'
 import { Row, Col, Container } from 'react-bootstrap';
 import { defaultCards, defaultDocSettings, defaultRows } from './misc/defaults';
 import SettingsPane from './views/SettingsPane';
 import useEditCardSettings from './hooks/useEditCardSettings';
+import CardsBank from "./views/settingsPane/CardsBank";
 
 function App() {
     const [docSettings, setDocSettings] = useState(defaultDocSettings);
     const [rows, setRows] = useState([]);
     const [cards, setCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
+    const [toggleCardsDialog, setToggleCardsDialog] = useState(null);
     const [editCardSettings, setEditCardSettings, cardSettingsData, setCardSettingsData] = useEditCardSettings();
 
     useEffect(() => {
@@ -112,7 +116,8 @@ function App() {
         destRow.cardsIds = reorderedCardIds;
     }
 
-    const addCardToRow = (rowId, cardOriginalId, index, sourceIndex) => {
+    const addCardToRow = (rowId, cardOriginalId, index) => {
+        console.log('addCardToRow', rowId, cardOriginalId, index);
         const originalCard = defaultCards.find(card => card.originalId === cardOriginalId);
         const row = rows.find(obj => obj.id === rowId);
         let newCard = { ...originalCard };
@@ -123,9 +128,22 @@ function App() {
         setCards([...cards, newCard]);
     }
 
+    const submitModal = (card) => {
+        if(!toggleCardsDialog){
+            return;
+        }
+        addCardToRow(toggleCardsDialog, card.originalId, 0);
+        setToggleCardsDialog(null);
+    }
+
     return (
-        <div className="picto-app">
-            <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+        <div className="picto-app"> 
+                <Modal onHide={() => setToggleCardsDialog(null)} show={toggleCardsDialog ? true : false} size='xl' scrollable>
+                    <ModalHeader></ModalHeader>
+                    <ModalBody>
+                        <CardsBank cards={defaultCards} chooseCard={submitModal} />
+                    </ModalBody>
+                </Modal>
                 <Container fluid className="p-3">
                     <Row>
                         <Col className="hide-for-print" sm={4}>
@@ -150,11 +168,13 @@ function App() {
                                 cards={cards} 
                                 editCardSettings={editCardSettings}
                                 setEditCardSettings={setEditCardSettings}
+                                toggleCardsDialog={setToggleCardsDialog}
+                                onDragEnd={onDragEnd}
+                                onDragStart={onDragStart}
                             />
                         </Col>
                     </Row>
                 </Container>
-            </DragDropContext>
         </div>
     );
 }

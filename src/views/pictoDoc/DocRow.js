@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
@@ -5,8 +6,17 @@ import DocCard from './DocCard'
 import useRevealOnHover from '../../hooks/useRevealOnHover';
 
 
-export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, editCardSettings, setEditCardSettings }) {
+export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, editCardSettings, setEditCardSettings, toggleCardsDialog }) {
     const { handleHover, handleHoverLeave } = useRevealOnHover();
+    const [showCardsDialog, setShowCardsDialog] = useState(false);
+
+    useEffect(() => {
+        if(showCardsDialog === true){
+            toggleCardsDialog(row.id);
+            setShowCardsDialog(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showCardsDialog]);
 
 
     const renderCards = () => {
@@ -41,6 +51,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, edi
                                 onMouseEnter={handleHover}
                             >
                                 <Row className={`no-gutters flex-nowrap align-items-center`}>
+                                    <div onClick={() => setShowCardsDialog(true)}>Click to add picto</div>
                                     {renderCards()}
                                     {provided.placeholder}
                                     {!cards.length && <div className="doc-row__empty-text">Drag pictures here!</div>}

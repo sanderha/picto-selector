@@ -1,20 +1,11 @@
-import { defaultCards } from "../misc/defaults";
+
 import Setup from "./settingsPane/Setup";
-import CardsBank from "./settingsPane/CardsBank";
 import CardSettings from "./settingsPane/CardSettings";
 
 export default function SettingsPane({ settings, setSettings, userIsDragging, editCardSettings, setEditCardSettings, cards, setCardSettingsData}) {
 
     const renderDefaultView = () => {
-        return (
-        <>
-            <Setup settings={settings} setSettings={setSettings} />
-            <hr />
-            <div className="mt-4">
-                <CardsBank cards={defaultCards} userIsDragging={userIsDragging} />
-            </div>
-        </>
-        )    
+        return <Setup settings={settings} setSettings={setSettings} />  
     }
 
     const renderCardSettings = () => {
