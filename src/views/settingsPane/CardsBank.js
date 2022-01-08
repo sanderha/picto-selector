@@ -5,6 +5,10 @@ import ReadOnlyDocCard from '../pictoDoc/ReadOnlyDocCard'
 
 export default function CardsBank({ cards, chooseCard }) {
 
+    if(!cards.length){
+        return '(no cards)';
+    }
+
     return (
         <div className={`cards-bank`}>
 
