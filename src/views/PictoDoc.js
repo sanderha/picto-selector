@@ -3,9 +3,52 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import DocRow from "./pictoDoc/DocRow";
 import BottomAd from './ads/BottomAd';
+import { rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, reorderItems} from "../functions/utilities";
 import { DragDropContext } from 'react-beautiful-dnd'
 
-export default function PictoDoc({ rows, cards, setRowsMethod, setCardsMethod, userIsDragging, settings, editCardSettings, setEditCardSettings, toggleCardsDialog, onDragEnd, onDragStart }) {
+export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod, setCardsMethod, userIsDragging, settings, editCardSettings, setEditCardSettings, toggleCardsDialog, addCardToRow }) {
+
+    const onDragStart = () => {
+        setUserIsDragging(true);
+    }
+
+    const onDragEnd = (result) => {
+        setUserIsDragging(false);
+        const { destination, source, draggableId } = result;
+        if (!destination) {
+            return;
+        }
+
+        // if came from row, remove that from the row
+        if (destination.droppableId === 'card-bank-droppable') {
+            const cardId = cardIdFromDraggableId(draggableId);
+            setCardsMethod(cards.filter(card => card.id !== cardId))
+
+            return;
+        }
+        if (source && source.droppableId !== 'card-bank-droppable') {
+            // from another row
+            const cardId = cardIdFromDraggableId(draggableId);
+            const rowId = rowIdFromDroppableId(destination.droppableId);
+            moveCard(rowId, cardId, destination.index, source.index);
+            return;
+        }
+        const submittedCardOriginalId = cardOriginalIdFromDraggableId(draggableId);
+        const rowId = rowIdFromDroppableId(destination.droppableId);
+        addCardToRow(rowId, submittedCardOriginalId, destination.index, source.index);
+    }
+
+    const moveCard = (rowId, cardId, index, sourceIndex) => {
+        let card = cards.find(c => c.id === cardId);
+        const sourceRow = rows.find(row => row.id === card.rowId);
+        const destRow = rows.find(row => row.id === rowId);
+        // remove item from source row
+        sourceRow.cardsIds.splice(sourceIndex, 1);
+        // set new row id
+        card.rowId = rowId;
+        const reorderedCardIds = reorderItems(destRow.cardsIds, null, index, card.id);
+        destRow.cardsIds = reorderedCardIds;
+    }
 
     const deleteRow = (rowId) => {
         setRowsMethod(rows.filter(row => row.id !== rowId))

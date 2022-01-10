@@ -11,10 +11,14 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+        cursor: pointer;
         color: darken($light, 25);
     }
     &--is-dragged-over {
         background-color: lighten($color: $success, $amount: 50);
+        .doc-card-add {
+            opacity: 0;
+        }
     }
     &--is-empty:not(&--is-dragged-over) {
         border: 2px dashed darken($light, 10);

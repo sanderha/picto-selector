@@ -2,10 +2,12 @@
 $card-spacer-x: .20rem;
 
 $grid-gutter-width: 10px;
-$headings-margin-bottom: 2rem;
+$headings-margin-bottom: 1rem;
 
 @import "~bootstrap/scss/bootstrap";
 @import "./scss/ads";
+
+
 
 // custom
 
@@ -59,13 +61,20 @@ button {
     }
 }
 
-.settings-pane {
-    position: relative;
-    z-index: 1;
+.content-box {
     border-right: 1px solid #eaeaea;
     height: 100%;
     padding-right: 1.5rem;
     margin-right: 1rem;
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: .7rem;
+    }
+}
+
+.settings-pane {
+    position: relative;
+    z-index: 1;
     &--disabled {
         opacity: .4;
     }

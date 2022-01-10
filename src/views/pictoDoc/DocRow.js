@@ -51,10 +51,14 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, edi
                                 onMouseEnter={handleHover}
                             >
                                 <Row className={`no-gutters flex-nowrap align-items-center`}>
-                                    <div onClick={() => setShowCardsDialog(true)}>Click to add picto</div>
                                     {renderCards()}
+                                    <Col sm="auto">
+                                        <div className="doc-card-add" onClick={() => setShowCardsDialog(true)} title="Click to add pictures here!">
+                                            <span>+</span>
+                                        </div>
+                                    </Col>
                                     {provided.placeholder}
-                                    {!cards.length && <div className="doc-row__empty-text">Drag pictures here!</div>}
+                                    {!cards.length && <div className="doc-row__empty-text" onClick={() => setShowCardsDialog(true)}>Click to add pictures here!</div>}
                                 </Row>
                             </div>
                         )

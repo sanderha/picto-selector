@@ -1,8 +1,11 @@
-.doc-card {
+.doc-card-add, .doc-card {
     position: relative;
     min-height: $card-height;
     max-width: 140px;
     margin-bottom: 15px;
+    cursor: pointer;
+}
+.doc-card {
     overflow: hidden;
     border: 0;
     padding: 0;
@@ -71,5 +74,30 @@
             opacity: 1;
             z-index: 1;
         }
+    }
+}
+
+.doc-card-add {
+    $add-color: rgb(179, 179, 179);
+    border: 5px dashed $add-color;
+    width: 120px;
+    margin: 5px;
+    z-index: 999;
+    display: flex;
+    align-items: center;   
+    justify-content: center;
+    opacity: .5;
+    transition: all .25s;
+    > span {
+        color: $add-color;
+        font-size: 40px;
+        font-weight: bold;
+        line-height: 1;
+    }
+    &:hover {
+        opacity: 1;
+    }
+    @media print {
+        display: none;
     }
 }
