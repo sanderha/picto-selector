@@ -100,7 +100,8 @@ function App() {
         if (!toggleCardsDialog) {
             return;
         }
-        addCardToRow(toggleCardsDialog, card, 0);
+        const row = rows.find(obj => obj.id === toggleCardsDialog);
+        addCardToRow(toggleCardsDialog, card, row.cardsIds.length);
         setToggleCardsDialog(null);
     }
 

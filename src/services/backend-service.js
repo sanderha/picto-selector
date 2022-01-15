@@ -7,7 +7,7 @@ export function resolveFile(url) {
 }
 
 export async function allCards(){
-    const data = await axios.get(`${process.env.REACT_APP_API_URL}/all-pictos`)
+    const data = await axios.get(`${process.env.REACT_APP_API_URL}/pictos`)
     // TODO error handling
     .then(r => r.data).catch(e => null);
 
