@@ -15,6 +15,9 @@
         max-width: 100px;
         margin-bottom: 8px; 
     }
+    &--read-only {
+        max-width: 100%;
+    }
     &--floating, &:hover {
         box-shadow: 0px 0px 10px #c4c4c4;
         transform: scale(1.05);

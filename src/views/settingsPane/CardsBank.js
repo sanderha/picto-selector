@@ -2,6 +2,7 @@ import React from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ReadOnlyDocCard from '../pictoDoc/ReadOnlyDocCard'
+import LazyLoad from 'react-lazyload';
 
 export default function CardsBank({ cards, chooseCard }) {
 
@@ -15,9 +16,14 @@ export default function CardsBank({ cards, chooseCard }) {
             <Row>
                 {cards.map((card, i) => {
                     return (
-                        <Col sm="auto" key={i} onClick={() => chooseCard(card)}>
-                            <ReadOnlyDocCard card={card} />
-                        </Col>
+                        
+                            <Col sm="2" key={i} onClick={() => chooseCard(card)}>
+                                <LazyLoad once  scrollContainer=".lazy-load-scroll-container-js">
+                                    <ReadOnlyDocCard card={card} />
+                                </LazyLoad>
+                            </Col>
+                        
+
                     )
                 })}
             </Row>

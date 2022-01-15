@@ -8,10 +8,13 @@ import PictoDoc from './views/PictoDoc';
 import { createRowObj, incrementId, reorderItems, updateCardInList } from './functions/utilities'
 import { Row, Col, Container } from 'react-bootstrap';
 import { defaultDocSettings, defaultRows } from './misc/defaults';
-import { allCards } from './services/backend-service';
+import { fetchAllCards } from './services/backend-service';
 import SettingsPane from './views/SettingsPane';
 import useEditCardSettings from './hooks/useEditCardSettings';
 import CardsBank from "./views/settingsPane/CardsBank";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
+import CustomBsModal from './views/misc/CustomBsModal';
 
 function App() {
     const [docSettings, setDocSettings] = useState(defaultDocSettings);
@@ -25,7 +28,7 @@ function App() {
 
     useEffect(() => {
         if (!originalCards.length) {
-            allCards().then(cards => {
+            fetchAllCards().then(cards => {
                 setOriginalCards(cards);
                 setLoading(false);
             });
@@ -106,17 +109,16 @@ function App() {
     }
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div className="text-center d-flex flex-column justify-content-center align-items-center mt-5" >
+            <FontAwesomeIcon size="6x" icon={faTimesCircle} className="loading-icon" spin style={{animationDuration: "2.5s"}}/>
+            <br/>
+            Loading...
+        </div>
     }
 
     return (
         <div className="picto-app">
-            <Modal onHide={() => setToggleCardsDialog(null)} show={toggleCardsDialog ? true : false} size='xl' scrollable>
-                <ModalHeader></ModalHeader>
-                <ModalBody>
-                    <CardsBank cards={originalCards} chooseCard={submitModal} />
-                </ModalBody>
-            </Modal>
+
             <Container fluid className="p-3">
                 <Row>
                     <Col className="hide-for-print" sm={4}>
@@ -155,6 +157,12 @@ function App() {
                     </Col>
                 </Row>
             </Container>
+            <CustomBsModal onHide={() => setToggleCardsDialog(null)} show={toggleCardsDialog ? true : false}>
+                <ModalHeader></ModalHeader>
+                <ModalBody>
+                    <CardsBank cards={originalCards} chooseCard={submitModal} />
+                </ModalBody>
+            </CustomBsModal>
         </div>
     );
 }
