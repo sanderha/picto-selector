@@ -1,0 +1,1 @@
+// react doc card title functional component

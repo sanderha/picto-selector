@@ -10,15 +10,19 @@ export default function CustomBsModal(props) {
     useEffect(() => {
         if (show) {
             document.querySelector(".custom-bs-modal").classList.add('d-block');
+            document.querySelector(".custom-bs-modal-backdrop").classList.add('d-block');
             // slight delay add show class to modal
             setTimeout(() => {
                 document.querySelector(".custom-bs-modal").classList.add('show');
+                document.querySelector(".custom-bs-modal-backdrop").classList.add('show');
             }, 100);
             forceCheck();
         } else {
             document.querySelector(".custom-bs-modal").classList.remove('show');
+            document.querySelector(".custom-bs-modal-backdrop").classList.remove('show');
             setTimeout(() => {
                 document.querySelector(".custom-bs-modal").classList.remove('d-block');
+                document.querySelector(".custom-bs-modal-backdrop").classList.remove('d-block');
             }, 100);
         }
         
@@ -26,9 +30,10 @@ export default function CustomBsModal(props) {
 
     return (
         <div>
+            <div className="fade custom-bs-modal-backdrop modal-backdrop"></div>
             <div className={`fade custom-bs-modal modal`} onClick={onHide}>
                 <div className="modal-dialog modal-xl modal-dialog-scrollable lazy-load-scroll-container-js" >
-                    <div className="customer-bs-modal__close">
+                    <div className="custom-bs-modal__close">
                         <FontAwesomeIcon icon={faWindowClose}  />
                     </div>
                     <div className="modal-content">

@@ -1,20 +1,22 @@
-.custom-bs-modal, .custom-bs-modal-backdrop {
-    &.fade:not(.show) {
-        //z-index: -999;
-    }
+.custom-bs-modal-backdrop {
+    display: none;
 }
 .custom-bs-modal {
+    max-height: 600px;
     &.show {
        
     }
     &__close {
         position: absolute;
         top: 0px;
-        right: -60px;
+        right: 8px;
         z-index: 999;
-        font-size: 46px;
-        cursor: pointer;
+        font-size: 25px;
         opacity: .5;
+        text-align: right;
+        > svg {
+            cursor: pointer;
+        }
         &:hover {
             opacity: 1;
         }

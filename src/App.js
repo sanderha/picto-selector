@@ -1,7 +1,6 @@
 import './App.scss';
 
 import { useState, useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal'
 import ModalBody from 'react-bootstrap/ModalBody'
 import ModalHeader from 'react-bootstrap/ModalHeader'
 import PictoDoc from './views/PictoDoc';
@@ -14,7 +13,7 @@ import useEditCardSettings from './hooks/useEditCardSettings';
 import CardsBank from "./views/settingsPane/CardsBank";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
-import CustomBsModal from './views/misc/CustomBsModal';
+import CustomBsModal from './components/CustomBsModal';
 
 function App() {
     const [docSettings, setDocSettings] = useState(defaultDocSettings);
