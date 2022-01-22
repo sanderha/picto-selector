@@ -96,7 +96,7 @@ export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod
                 })}
             </DragDropContext>
 
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 hide-for-print">
                 <Row className="justify-content-md-center">
                     <Col className="col-md-auto">
                         <PrintBtn />

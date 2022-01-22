@@ -119,7 +119,7 @@ button {
 }
 
 @media print {
-    .btn, .settings-pane, .hide-for-print, .bottom-awt {
+    .btn, .settings-pane, .hide-for-print, .bottom-awt, footer {
         display: none;
     }
     @page { margin: 0; }
