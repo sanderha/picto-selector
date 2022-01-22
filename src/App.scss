@@ -25,7 +25,18 @@ $card-height: 100px;
 @import "./scss/doc-row";
 @import "./scss/modal";
 
+.picto-app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
 
+.footer {
+    padding: 15px 5px;
+    font-size: 11px;
+    opacity: .8;
+}
 
 .doc-title {
     text-align: center;

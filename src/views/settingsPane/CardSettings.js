@@ -3,7 +3,7 @@ import { CARD_BORDER_COLOR_DEFAULT, CARD_TITLE_ABOVE } from '../../misc/constant
 import { cardBorderFieldValues, cardTitleFieldValues, cardBorderColorFieldValues } from "../../misc/defaults";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons'
-import ColorInputField from './ColorInputField';
+import ColorInputField from '../../components/ColorInputField';
 
 export default function CardSettings({ card, submitSettings, closeFunc }) {
     const [title, setTitle] = useState(card.title || '');

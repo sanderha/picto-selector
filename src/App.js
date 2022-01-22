@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import CustomBsModal from './components/CustomBsModal';
 import Welcome from './views/Welcome';
+import Footer from './views/Footer';
 
 function App() {
     const [docSettings, setDocSettings] = useState(defaultDocSettings);
@@ -111,56 +112,60 @@ function App() {
 
     if (loading) {
         return <div className="text-center d-flex flex-column justify-content-center align-items-center mt-5" >
-            <FontAwesomeIcon size="6x" icon={faTimesCircle} className="loading-icon" spin style={{animationDuration: "2.5s"}}/>
-            <br/>
+            <FontAwesomeIcon size="6x" icon={faTimesCircle} className="loading-icon" spin style={{ animationDuration: "2.5s" }} />
+            <br />
             Loading...
         </div>
     }
 
     return (
         <div className="picto-app">
+            <div>
+                <Container fluid className="p-3">
+                    <Row>
+                        <Col className="hide-for-print" sm={4}>
+                            <div className="content-box">
+                                {showWelcome && <Welcome setShowWelcome={setShowWelcome} />}
+                                <SettingsPane
+                                    setCards={setCards}
+                                    cards={cards}
+                                    settings={docSettings}
+                                    setSettings={setDocSettings}
+                                    userIsDragging={userIsDragging}
+                                    editCardSettings={editCardSettings}
+                                    setEditCardSettings={setEditCardSettings}
+                                    setCardSettingsData={setCardSettingsData}
+                                />
+                            </div>
 
-            <Container fluid className="p-3">
-                <Row>
-                    <Col className="hide-for-print" sm={4}>
-                        <div className="content-box">
-                            {showWelcome && <Welcome setShowWelcome={setShowWelcome} />}
-                            <SettingsPane
-                                setCards={setCards}
-                                cards={cards}
+                        </Col>
+                        <Col className="picto-doc-wrapper-col">
+                            <PictoDoc
                                 settings={docSettings}
-                                setSettings={setDocSettings}
                                 userIsDragging={userIsDragging}
+                                setUserIsDragging={setUserIsDragging}
+                                setCardsMethod={setCards}
+                                setRowsMethod={setRows}
+                                rows={rows}
+                                cards={cards}
                                 editCardSettings={editCardSettings}
                                 setEditCardSettings={setEditCardSettings}
-                                setCardSettingsData={setCardSettingsData}
+                                toggleCardsDialog={setToggleCardsDialog}
+                                addCardToRow={addCardToRow}
                             />
-                        </div>
-
-                    </Col>
-                    <Col className="picto-doc-wrapper-col">
-                        <PictoDoc
-                            settings={docSettings}
-                            userIsDragging={userIsDragging}
-                            setUserIsDragging={setUserIsDragging}
-                            setCardsMethod={setCards}
-                            setRowsMethod={setRows}
-                            rows={rows}
-                            cards={cards}
-                            editCardSettings={editCardSettings}
-                            setEditCardSettings={setEditCardSettings}
-                            toggleCardsDialog={setToggleCardsDialog}
-                            addCardToRow={addCardToRow}
-                        />
-                    </Col>
-                </Row>
-            </Container>
-            <CustomBsModal onHide={() => setToggleCardsDialog(null)} show={toggleCardsDialog ? true : false}>
-                <ModalHeader></ModalHeader>
-                <ModalBody>
-                    <CardsBank cards={originalCards} chooseCard={submitModal} />
-                </ModalBody>
-            </CustomBsModal>
+                        </Col>
+                    </Row>
+                </Container>
+                <CustomBsModal onHide={() => setToggleCardsDialog(null)} show={toggleCardsDialog ? true : false}>
+                    <ModalHeader></ModalHeader>
+                    <ModalBody>
+                        <CardsBank cards={originalCards} chooseCard={submitModal} />
+                    </ModalBody>
+                </CustomBsModal>
+            </div>
+            <div>
+                <Footer />
+            </div>
         </div>
     );
 }

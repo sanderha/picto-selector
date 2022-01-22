@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import DocRow from "./pictoDoc/DocRow";
 import BottomAd from './ads/BottomAd';
-import { rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, reorderItems} from "../functions/utilities";
+import { rowIdFromDroppableId, cardIdFromDraggableId, cardOriginalIdFromDraggableId, reorderItems } from "../functions/utilities";
 import { DragDropContext } from 'react-beautiful-dnd'
 
 export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod, setCardsMethod, userIsDragging, settings, editCardSettings, setEditCardSettings, toggleCardsDialog, addCardToRow }) {
@@ -96,12 +96,13 @@ export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod
                 })}
             </DragDropContext>
 
-            <div className="text-center">
+            <div className="text-center mt-4">
                 <Row className="justify-content-md-center">
                     <Col className="col-md-auto">
-                        {cards.length ? <PrintBtn /> : null}
+                        <PrintBtn />
                     </Col>
                 </Row>
+                <div className="mt-2" style={{fontSize: "10px"}}>*Empty rows are not visible in the final print</div>
             </div>
             <Row>
                 <Col>
