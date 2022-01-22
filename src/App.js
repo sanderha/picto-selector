@@ -16,12 +16,13 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import CustomBsModal from './components/CustomBsModal';
 import Welcome from './views/Welcome';
 import Footer from './views/Footer';
+import useStickyState from './hooks/useStickyState';
 
 function App() {
-    const [docSettings, setDocSettings] = useState(defaultDocSettings);
+    const [docSettings, setDocSettings] = useStickyState(defaultDocSettings, 'docSettings');
     const [showWelcome, setShowWelcome] = useState(true);
-    const [rows, setRows] = useState([]);
-    const [cards, setCards] = useState([]);
+    const [rows, setRows] = useStickyState([], 'rows');
+    const [cards, setCards] = useStickyState([], 'cards');
     const [originalCards, setOriginalCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
     const [toggleCardsDialog, setToggleCardsDialog] = useState(null);
