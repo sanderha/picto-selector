@@ -3,6 +3,7 @@
     min-height: $card-height + 5px;
     border: none;
     transition: background-color .2s ease;
+    margin-bottom: .2rem;
     &-col {
     }
     &__empty-text {
@@ -26,5 +27,11 @@
         @media print {
             display: none;
         }
+    }
+    &--spacing-medium {
+        margin-bottom: 4rem;
+    }
+    &--spacing-large {
+        margin-bottom: 7rem;
     }
 }

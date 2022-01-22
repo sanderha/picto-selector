@@ -3,8 +3,9 @@ import CardImg from 'react-bootstrap/CardImg'
 import { CARD_BORDER_DASHED, CARD_BORDER_SOLID, CARD_TITLE_ABOVE, CARD_TITLE_BELOW } from '../../misc/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+import DocCardTitle from './DocCard/DocCardTitle';
 
-export default function DocCard({ card, deleteMethod, editSettings, setEditSettings }) {
+export default function DocCard({ card, size, deleteMethod, editSettings, setEditSettings }) {
 
     const handleSettingsClick = () => {
         // close again when clicking button on the current active card
@@ -24,12 +25,15 @@ export default function DocCard({ card, deleteMethod, editSettings, setEditSetti
         if(card.border === CARD_BORDER_DASHED){
             classes += ' doc-card--border-dashed'
         }
+        if(size){
+            classes += ` doc-card--${size}`
+        }
 
         return classes;
     }
 
     return <Card body className={classNames()} style={{borderColor: card.borderColor}}>
-        {card.titlePosition === CARD_TITLE_ABOVE && card?.title}
+        {card.titlePosition === CARD_TITLE_ABOVE && card?.title ? <DocCardTitle>{card.title}</DocCardTitle> : null}
         <div className="doc-card__image">
             <button className="clean-btn doc-card__delete" onClick={() => deleteMethod(card)} title="delete">
                 <FontAwesomeIcon icon={faTrashAlt} />
@@ -40,6 +44,6 @@ export default function DocCard({ card, deleteMethod, editSettings, setEditSetti
             <CardImg width="100%" src={card.img} alt={card.name} />
         </div>
 
-        {card.titlePosition === CARD_TITLE_BELOW && card?.title}
+        {card.titlePosition === CARD_TITLE_BELOW && card?.title ? <DocCardTitle>{card.title}</DocCardTitle> : null}
     </Card>
 }

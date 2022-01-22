@@ -82,11 +82,13 @@ export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod
                     return <DocRow
                         key={i}
                         row={row}
+                        size={settings.rowSize}
                         deleteCardMethod={deleteCard}
                         deleteMethod={deleteRow}
                         cards={cards.filter(card => row.id === card.rowId).sort(function (a, b) {
                             return row.cardsIds.indexOf(a.id) - row.cardsIds.indexOf(b.id);
                         })}
+                        cardSize={settings.cardSize}
                         editCardSettings={editCardSettings}
                         setEditCardSettings={setEditCardSettings}
                         toggleCardsDialog={toggleCardsDialog}

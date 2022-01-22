@@ -11,9 +11,11 @@
     padding: 0;
     z-index: 999;
     //transition: all .25s;
-    &--small {
-        max-width: 100px;
-        margin-bottom: 8px; 
+    &--medium {
+        max-width: 190px;
+    }
+    &--large {
+        max-width: 240px;
     }
     &--read-only {
         max-width: 100%;

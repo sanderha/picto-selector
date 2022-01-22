@@ -6,7 +6,7 @@ import DocCard from './DocCard'
 import useRevealOnHover from '../../hooks/useRevealOnHover';
 
 
-export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, editCardSettings, setEditCardSettings, toggleCardsDialog }) {
+export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, size, cardSize, editCardSettings, setEditCardSettings, toggleCardsDialog }) {
     const { handleHover, handleHoverLeave } = useRevealOnHover();
     const [showCardsDialog, setShowCardsDialog] = useState(false);
 
@@ -30,7 +30,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, edi
                         ref={p.innerRef}
                         className="doc-row-col flex-shrink-1"
                     >
-                        <DocCard deleteMethod={deleteCardMethod} card={card} editSettings={editCardSettings} setEditSettings={setEditCardSettings}/>
+                        <DocCard size={cardSize} deleteMethod={deleteCardMethod} card={card} editSettings={editCardSettings} setEditSettings={setEditCardSettings}/>
                     </Col>
                 }}
             </Draggable>
@@ -46,7 +46,7 @@ export default function DocRow({ deleteMethod, deleteCardMethod, cards, row, edi
                             <div
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
-                                className={`doc-row card mb-2${snapshot.isDraggingOver ? " doc-row--is-dragged-over" : ""}${!cards.length ? " doc-row--is-empty" : ""}`}
+                                className={`doc-row card doc-row--spacing-${size}${snapshot.isDraggingOver ? " doc-row--is-dragged-over" : ""}${!cards.length ? " doc-row--is-empty" : ""}`}
                                 onMouseLeave={handleHoverLeave}
                                 onMouseEnter={handleHover}
                             >

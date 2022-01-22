@@ -14,9 +14,11 @@ import CardsBank from "./views/settingsPane/CardsBank";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import CustomBsModal from './components/CustomBsModal';
+import Welcome from './views/Welcome';
 
 function App() {
     const [docSettings, setDocSettings] = useState(defaultDocSettings);
+    const [showWelcome, setShowWelcome] = useState(true);
     const [rows, setRows] = useState([]);
     const [cards, setCards] = useState([]);
     const [originalCards, setOriginalCards] = useState([]);
@@ -122,10 +124,7 @@ function App() {
                 <Row>
                     <Col className="hide-for-print" sm={4}>
                         <div className="content-box">
-                            <h1>Welcome to Simple Picto-selector Online</h1>
-                            <p>Create simple picto sheets by adding pictures to the rows on the screen.</p>
-                            <p>You can modify pictures by hovering over them and clicking the edit button</p>
-                            <hr />
+                            {showWelcome && <Welcome setShowWelcome={setShowWelcome} />}
                             <SettingsPane
                                 setCards={setCards}
                                 cards={cards}
