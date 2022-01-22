@@ -105,7 +105,7 @@ export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod
             </div>
             <Row>
                 <Col>
-                    <BottomAd />
+                    <BottomAd show={false} />
                 </Col>
             </Row>
         </div>
