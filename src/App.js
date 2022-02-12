@@ -19,10 +19,10 @@ import Footer from './views/Footer';
 import useStickyState from './hooks/useStickyState';
 
 function App() {
-    const [docSettings, setDocSettings] = useStickyState(defaultDocSettings, 'docSettings');
+    const [docSettings, setDocSettings] = useState(defaultDocSettings);
     const [showWelcome, setShowWelcome] = useState(true);
-    const [rows, setRows] = useStickyState([], 'rows');
-    const [cards, setCards] = useStickyState([], 'cards');
+    const [rows, setRows] = useState([]);
+    const [cards, setCards] = useState([]);
     const [originalCards, setOriginalCards] = useState([]);
     const [userIsDragging, setUserIsDragging] = useState(false);
     const [toggleCardsDialog, setToggleCardsDialog] = useState(null);
@@ -100,6 +100,7 @@ function App() {
         const reorderedCardIds = reorderItems(row.cardsIds, null, index, newCard.id);
         row.cardsIds = reorderedCardIds;
         setCards([...cards, newCard]);
+        setRows([...rows]);
     }
 
     const submitModal = (card) => {
@@ -113,7 +114,7 @@ function App() {
 
     if (loading) {
         return <div className="text-center d-flex flex-column justify-content-center align-items-center mt-5" >
-            <FontAwesomeIcon size="6x" icon={faTimesCircle} className="loading-icon" spin style={{ animationDuration: "2.5s" }} />
+            <FontAwesomeIcon size="4x" icon={faTimesCircle} className="loading-icon" spin style={{ animationDuration: "2.5s" }} />
             <br />
             Loading...
         </div>

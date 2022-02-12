@@ -48,6 +48,7 @@ export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod
         card.rowId = rowId;
         const reorderedCardIds = reorderItems(destRow.cardsIds, null, index, card.id);
         destRow.cardsIds = reorderedCardIds;
+        setRowsMethod([...rows]);
     }
 
     const deleteRow = (rowId) => {
@@ -62,6 +63,7 @@ export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod
         // remove card
         setCardsMethod([...cards.filter(c => c.id !== card.id)])
         setEditCardSettings({ ...editCardSettings, visible: false });
+        setRowsMethod([...rows]);
     }
 
     const renderTitle = () => {
@@ -85,9 +87,7 @@ export default function PictoDoc({ rows, cards, setUserIsDragging, setRowsMethod
                         size={settings.rowSize}
                         deleteCardMethod={deleteCard}
                         deleteMethod={deleteRow}
-                        cards={cards.filter(card => row.id === card.rowId).sort(function (a, b) {
-                            return row.cardsIds.indexOf(a.id) - row.cardsIds.indexOf(b.id);
-                        })}
+                        cards={cards.filter(card => row.id === card.rowId).sort((a, b) => row.cardsIds.indexOf(a.id) - row.cardsIds.indexOf(b.id))}
                         cardSize={settings.cardSize}
                         editCardSettings={editCardSettings}
                         setEditCardSettings={setEditCardSettings}
